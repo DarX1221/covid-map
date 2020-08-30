@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-public class MapControler {
+public class MapController {
     private final CovidDataService covidDataService;
 
 
     @Autowired
-    public MapControler(CovidDataService covidDataService) {
+    public MapController(CovidDataService covidDataService) {
         this.covidDataService = covidDataService;
     }
 
@@ -21,16 +21,16 @@ public class MapControler {
     public String map(Model model) {
 
         // pointListLat should be first!
-        List<Double> pointListLat = covidDataService.getPointListLat();
+        List<Double> pointListLat = covidDataService.getLatitudePointList();
         model.addAttribute("pointListLat", pointListLat);
 
-        List<Double> pointListLon = covidDataService.getPointListLon();
+        List<Double> pointListLon = covidDataService.getLongitudePointList();
         model.addAttribute("pointListLon", pointListLon);
 
-        List<String> pointListDsc = covidDataService.getPointListDsc();
+        List<String> pointListDsc = covidDataService.getDescriptionPointList();
         model.addAttribute("pointListDsc", pointListDsc);
 
-        String lastUpdate = covidDataService.getDateStr().toString();
+        String lastUpdate = covidDataService.getDateStr();
         model.addAttribute("lastUpdate", lastUpdate);
 
         return "map";
